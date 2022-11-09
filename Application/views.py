@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+# from .models import Info
+from .form import InfoForm
 # Create your views here.
 
 def index(request):
@@ -20,6 +21,13 @@ def blog(request):
 def contact(request):
     template = 'Application/contact.html'
     context = {}
+    if request.method == 'POST':
+        form = InfoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print("save")
+        else:
+            print(form.errors)
     return render(request, template, context)
 
 def detail(request):

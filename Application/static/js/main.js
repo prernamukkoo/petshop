@@ -134,3 +134,8 @@
     
 })(jQuery);
 
+
+
+let alertMessage = (strongMessage, message, alertType) =>{
+    let message = `<div class="alert alert-${alertType} alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>${strongMessage}</strong> ${message}</div>`;
+}
