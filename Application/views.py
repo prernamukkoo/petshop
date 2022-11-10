@@ -30,6 +30,23 @@ def contact(request):
             print(form.errors)
     return render(request, template, context)
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+# @csrf_exempt
+def saveInfoDAta(request):
+    form = InfoForm(request.POST)
+    if form.is_valid():
+        form.save()
+        context = {
+            'status': 202
+        }
+    else:
+        context = {
+            'status': 400
+        }
+    return JsonResponse(context)
+
 def detail(request):
     template = 'Application/detail.html'
     context = {}

@@ -33,7 +33,8 @@
                                 <textarea class="form-control bg-light border-0 px-4 py-3" rows="8" placeholder="Message" name="message"  id="message"></textarea>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit" id="sendDataButton">Send Message</button>
+                                <!-- <button class="btn btn-primary w-100 py-3" type="submit" id="sendDataButton">Send Message</button> -->
+                                <button class="btn btn-primary w-100 py-3" type="button" id="sendDataButton">Send Message</button>
                             </div>
                         </div>
                     </form>
@@ -78,10 +79,35 @@
     <script>
         $(document).ready(function(){
             $(document).on('click', '#sendDataButton', function(){
-                let name = $('#name').val();
-                let email = $('#email').val();
-                let subject = $('#subject').val();
-                let message = $('#message').val();
+                let name = $("#name").val();
+                let email = $("#email").val();
+                let subject = $("#subject").val();
+                let message = $("#message").val();
+                let csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                    url: "{% url 'saveInfoDAta' %}",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        'name': name,
+                        'email': email,
+                        'subject': subject,
+                        'message':message ,
+                        'csrfmiddlewaretoken': csrfmiddlewaretoken
+                    }, success: function(response){
+                        if (response.status == 202){
+                            let a = alertMessage("Success !", "Data Save", "success");
+                            $("#messageBody").append(a);
+                            $("#name").val("");
+                            $("#email").val("");
+                            $("#subject").val("");
+                            $("#message").val("");
+                        }else{
+                            let a = alertMessage("Fail !", "Data Not Save", "danger");
+                            $('#messageBody').append(a);
+                        }
+                    }
+                })
             })
         })
     </script>

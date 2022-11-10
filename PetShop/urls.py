@@ -26,6 +26,7 @@ urlpatterns = [
     path('detail', views.detail, name='detail'),
     path('price', views.price, name='price'),
     path('product', views.product, name='product'),
+    path('saveInfoDAta', views.saveInfoDAta, name='saveInfoDAta'),
     path('service', views.service, name='service'),
     path('team', views.team, name='team'),
     path('testimonial', views.testimonial, name='testimonial'),
